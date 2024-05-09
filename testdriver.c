@@ -12,7 +12,7 @@ MODULE_DESCRIPTION("ioctl example");
 MODULE_VERSION("0.1.0");
 
 static int char_dev_major_number = 0;
-static const char *name = "testdevice";
+static const char *const name = "testdevice";
 static int answer = 0;
 static struct mystruct test = {0, ""};
 
@@ -30,37 +30,37 @@ static int driver_release(struct inode *dev_file, struct file *instance)
 static long driver_unlocked_ioctl(struct file *file, unsigned int request, unsigned long arg)
 {
     switch (request) {
-        case RD_VALUE:
-            if (copy_to_user((int *) arg, &answer, sizeof(answer)) != 0) {
-                pr_info("Error copying value to user.\n");
-                return -1;
-            }
-            break;
-        case WR_VALUE:
-            if (copy_from_user(&answer, (int *) arg, sizeof(answer)) != 0) {
-                pr_info("Error copying value from user.\n");
-                return -1;
-            } else {
-                pr_info("Received answer = %d\n", answer);
-            }
-            break;
-        case RD_STRUCT:
-            if (copy_to_user((struct mystruct *) arg, &test, sizeof(test)) != 0) {
-                pr_info("Error copying struct to user.\n");
-                return -1;
-            }
-            break;
-        case WR_STRUCT:
-            if (copy_from_user(&test, (struct mystruct *) arg, sizeof(test)) != 0) {
-                pr_info("Error copying struct from user.\n");
-                return -1;
-            } else {
-                pr_info("Received num = %d, name = \"%s\"\n", test.num, test.name);
-            }
-            break;
-        default:
-            pr_info("Invalid request.\n");
+    case RD_VALUE:
+        if (copy_to_user((int *) arg, &answer, sizeof(answer)) != 0) {
+            pr_info("Error copying value to user.\n");
             return -1;
+        }
+        break;
+    case WR_VALUE:
+        if (copy_from_user(&answer, (int *) arg, sizeof(answer)) != 0) {
+            pr_info("Error copying value from user.\n");
+            return -1;
+        } else {
+            pr_info("Received answer = %d\n", answer);
+        }
+        break;
+    case RD_STRUCT:
+        if (copy_to_user((struct mystruct *) arg, &test, sizeof(test)) != 0) {
+            pr_info("Error copying struct to user.\n");
+            return -1;
+        }
+        break;
+    case WR_STRUCT:
+        if (copy_from_user(&test, (struct mystruct *) arg, sizeof(test)) != 0) {
+            pr_info("Error copying struct from user.\n");
+            return -1;
+        } else {
+            pr_info("Received num = %d, name = \"%s\"\n", test.num, test.name);
+        }
+        break;
+    default:
+        pr_info("Invalid request.\n");
+        return -1;
     }
 
     return 0;
@@ -75,7 +75,7 @@ static struct file_operations fops = {
 
 static int __init module_start(void)
 {
-    int char_dev_major_number = register_chrdev(0, name, &fops);
+    char_dev_major_number = register_chrdev(0, name, &fops);
     if (char_dev_major_number < 0) {
         pr_info("Error registering character device.\n");
         return -1;

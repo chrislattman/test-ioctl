@@ -9,7 +9,7 @@ sudo insmod testdriver.ko
 to load the module. The module should register a character device (if anything goes wrong, run `sudo dmesg` to see what happened). Then run
 
 ```
-cat /proc/devices | grep testdevice | head -n 1
+cat /proc/devices | grep testdevice
 ```
 
 This will return the device major number next to its name, which should be "testdevice" (Linux character devices have major and minor numbers). Use this major number by running
