@@ -1,4 +1,4 @@
-# Communicating between user space and kernel space
+# Communicating between user space and kernel space in Linux
 
 Run `make` to build the kernel module and the user space code. Then run
 
@@ -6,7 +6,7 @@ Run `make` to build the kernel module and the user space code. Then run
 sudo insmod testdriver.ko
 ```
 
-to load the module. The module should register a character device (if anything goes wrong, run `sudo dmesg` to see what happened). Then run
+to load the module (you can use `lsmod` to check that it's loaded). The module should register a character device (if anything goes wrong, run `sudo dmesg` to see what happened). Then run
 
 ```
 cat /proc/devices | grep testdevice
