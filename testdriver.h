@@ -1,5 +1,5 @@
-#ifndef DRIVER_H
-#define DRIVER_H
+#ifndef TESTDRIVER_H
+#define TESTDRIVER_H
 
 struct mystruct {
     int num;
@@ -14,4 +14,4 @@ struct mystruct {
 #define WR_STRUCT _IOW('a', 'c', struct mystruct *)
 #define RD_STRUCT _IOR('a', 'd', struct mystruct *)
 
-#endif // DRIVER_H
+#endif // TESTDRIVER_H
