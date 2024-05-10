@@ -94,7 +94,7 @@ static int __init module_start(void)
         pr_info("Error allocating memory for string");
         return -1;
     }
-    strncpy(string, "Hello from testdriver.c!", 20);
+    strncpy(string, "Hello from testdriver.c!", 30);
     pr_info("%s\n", string);
     kfree(string);
     pr_info("Module loaded.\n");
