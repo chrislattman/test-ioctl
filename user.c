@@ -12,7 +12,7 @@ int main() {
 
     fd = open("/dev/mydevice", O_WRONLY);
     if (fd < 0) {
-        printf("Error opening character device /dev/mydevice\n");
+        fprintf(stderr, "Error opening character device /dev/mydevice\n");
         return 1;
     }
 
